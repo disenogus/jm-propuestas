@@ -2,7 +2,7 @@
 
 Generador de propuestas técnicas (brochure) para **JM Security System**. Cualquier vendedor arma la propuesta de un cliente en 5 pasos y la descarga en PDF, lista para enviar.
 
-**Demo:** https://USUARIO.github.io/jm-propuestas/
+**Demo:** https://disenogus.github.io/jm-propuestas/
 
 ## Flujo
 
