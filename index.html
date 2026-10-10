@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JM Propuestas</title>
+  <meta name="description" content="Generador de propuestas técnicas y brochures de JM Security System.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300,0,0&display=block" rel="stylesheet">
+  <link rel="stylesheet" href="css/doc.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='28' height='28' fill='none' stroke='%23111' stroke-width='2.5'/%3E%3Ctext x='16' y='21' font-family='Arial' font-weight='700' font-size='11' text-anchor='middle' fill='%23111'%3EJM%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo">
+    <span class="box">JM</span>
+    <div><b>Propuestas</b><small>Generador de brochure técnico · MVP</small></div>
+  </div>
+  <nav class="stepper" id="stepper" aria-label="Pasos">
+    <button class="step on" data-step="1"><span class="n">1</span><span class="lbl">Cliente</span></button>
+    <button class="step" data-step="2"><span class="n">2</span><span class="lbl">Contenido</span></button>
+    <button class="step" data-step="3"><span class="n">3</span><span class="lbl">Productos</span></button>
+    <button class="step" data-step="4"><span class="n">4</span><span class="lbl">Cotización</span></button>
+    <button class="step" data-step="5"><span class="n">5</span><span class="lbl">Exportar</span></button>
+  </nav>
+  <div class="actions">
+    <button class="icon-btn" id="btn-open" title="Abrir propuesta guardada (.json)"><span class="ms">folder_open</span><span class="lbl">Abrir</span></button>
+    <button class="icon-btn" id="btn-save" title="Guardar propuesta como archivo (.json)"><span class="ms">save</span><span class="lbl">Guardar</span></button>
+    <button class="icon-btn" id="btn-new" title="Empezar una propuesta en blanco"><span class="ms">add</span><span class="lbl">Nueva</span></button>
+    <input type="file" id="file-open" class="file" accept="application/json,.json">
+  </div>
+</header>
+
+<main class="shell">
+  <!-- ================= EDITOR ================= -->
+  <section class="editor" id="editor">
+    <div class="editor-scroll" id="editor-scroll">
+
+      <!-- PASO 1 · CLIENTE -->
+      <div class="panel on" data-panel="1">
+        <header>
+          <div class="k">Paso 1 de 5</div>
+          <h2>Cliente y portada</h2>
+          <p>Estos datos arman la portada y aparecen en cada página.</p>
+        </header>
+
+        <div class="group">
+          <h3><span class="ms">apartment</span>Cliente</h3>
+          <label class="field"><span>Nombre del cliente o marca <em data-count="client.name"></em></span>
+            <input class="input" data-bind="client.name" maxlength="36" placeholder="Ej. Residencia Pérez"></label>
+          <label class="field"><span>Subtítulo del proyecto <em data-count="client.subtitle"></em></span>
+            <textarea class="textarea" data-bind="client.subtitle" maxlength="140" rows="2" placeholder="Una línea que resuma el alcance"></textarea></label>
+          <label class="field"><span>Ubicación del proyecto</span>
+            <input class="input" data-bind="client.location" maxlength="60" placeholder="Sector, ciudad"></label>
+
+          <div class="upload">
+            <div class="thumb" id="thumb-cover"><span class="ms">image</span></div>
+            <div>
+              <b>Imagen de portada</b>
+              <small>Horizontal · mínimo 2480 × 1754 px (A4 a 150 ppp) · JPG</small>
+              <div class="btns">
+                <label class="btn sm"><span class="ms">upload</span>Subir<input type="file" class="file" accept="image/*" data-upload="client.cover" data-max="2400"></label>
+                <button class="btn sm" data-clear="client.cover">Quitar</button>
+              </div>
+            </div>
+          </div>
+          <div class="upload">
+            <div class="thumb contain" id="thumb-logo"><span class="ms">add_photo_alternate</span></div>
+            <div>
+              <b>Logo del cliente</b>
+              <small>PNG o SVG con fondo transparente</small>
+              <div class="btns">
+                <label class="btn sm"><span class="ms">upload</span>Subir<input type="file" class="file" accept="image/*" data-upload="client.logo" data-max="800" data-png="1"></label>
+                <button class="btn sm" data-clear="client.logo">Quitar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="group">
+          <h3><span class="ms">person</span>Representante del cliente</h3>
+          <div class="row">
+            <label class="field"><span>Nombre</span><input class="input" data-bind="rep.name" maxlength="40" placeholder="Nombre y apellido"></label>
+            <label class="field"><span>Cargo</span><input class="input" data-bind="rep.role" maxlength="40" placeholder="Ej. Propietario"></label>
+          </div>
+          <label class="field"><span>Contacto</span><input class="input" data-bind="rep.contact" maxlength="60" placeholder="Teléfono · correo"></label>
+        </div>
+
+        <div class="group">
+          <h3><span class="ms">badge</span>Vendedor JM</h3>
+          <label class="field"><span>Vendedor responsable</span>
+            <select class="select" id="seller-select"></select></label>
+          <div class="seller-card" id="seller-card"></div>
+          <p class="hint">El vendedor se elige de la lista registrada. El folio de la propuesta queda ligado a su código para el control de ventas y comisiones.</p>
+          <div class="upload">
+            <div class="thumb round" id="thumb-avatar"><span class="ms">account_circle</span></div>
+            <div>
+              <b>Foto del vendedor (opcional)</b>
+              <small>Si no hay foto se usan sus iniciales</small>
+              <div class="btns">
+                <label class="btn sm"><span class="ms">upload</span>Subir<input type="file" class="file" accept="image/*" data-upload="seller.photo" data-max="400"></label>
+                <button class="btn sm" data-clear="seller.photo">Quitar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="group">
+          <h3><span class="ms">description</span>Documento</h3>
+          <div class="row">
+            <label class="field"><span>Fecha</span><input class="input" type="date" data-bind="doc.date"></label>
+            <label class="field"><span>Versión</span><input class="input" data-bind="doc.version" maxlength="10" placeholder="v1"></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASO 2 · CONTENIDO -->
+      <div class="panel" data-panel="2">
+        <header>
+          <div class="k">Paso 2 de 5</div>
+          <h2>Contenido de la plantilla</h2>
+          <p>Presentación de la empresa, visión del proyecto y páginas opcionales.</p>
+        </header>
+
+        <div class="group">
+          <h3><span class="ms">lock</span>Quiénes somos</h3>
+          <div class="locked"><span class="ms">verified</span><div><b>Bloque fijo de JM Security System</b>Va igual en todas las propuestas. Se edita desde administración, no por propuesta.</div></div>
+        </div>
+
+        <div class="group">
+          <h3><span class="ms">edit_note</span>Visión del proyecto</h3>
+          <label class="field"><span>Título <em data-count="vision.title"></em></span>
+            <input class="input" data-bind="vision.title" maxlength="70"></label>
+          <label class="field"><span>Descripción <em data-count="vision.body"></em></span>
+            <textarea class="textarea" data-bind="vision.body" maxlength="2600" rows="10"></textarea></label>
+          <p class="hint">Hasta 2 600 caracteres. Si el texto pasa de ~1 100 caracteres continúa en una segunda página a dos columnas. Separa párrafos con una línea en blanco.</p>
+          <div id="pillars-ed"></div>
+        </div>
+
+        <div class="group">
+          <h3><span class="ms">auto_stories</span>Páginas opcionales</h3>
+          <label class="toggle"><div><b>Ecosistema</b><small>Resumen de los sistemas incluidos (se arma solo)</small></div><input type="checkbox" data-bind="opts.eco"></label>
+          <label class="toggle"><div><b>Escenarios automáticos</b><small>Modo salida, llegada y noche</small></div><input type="checkbox" data-bind="opts.scen"></label>
+          <label class="toggle"><div><b>Planos</b><small>Espacios reservados para planos eléctricos y de red</small></div><input type="checkbox" data-bind="opts.plans"></label>
+          <label class="toggle"><div><b>Resumen de inversión</b><small>Tabla de precios con totales</small></div><input type="checkbox" data-bind="opts.quote"></label>
+          <label class="toggle"><div><b>Cierre y contacto</b><small>Siempre incluido</small></div><input type="checkbox" checked disabled></label>
+        </div>
+      </div>
+
+      <!-- PASO 3 · PRODUCTOS -->
+      <div class="panel" data-panel="3">
+        <header>
+          <div class="k">Paso 3 de 5</div>
+          <h2>Productos</h2>
+          <p>Agrega productos del inventario: con el botón, o arrastrando la card al documento. Cada producto es una página.</p>
+        </header>
+        <div class="subtabs" id="subtabs">
+          <button class="on" data-sub="cat"><span class="ms">inventory_2</span>Catálogo</button>
+          <button data-sub="sel" id="sub-sel"><span class="ms">checklist</span>En la propuesta <span class="count" id="sel-count">0</span></button>
+        </div>
+        <div data-subpanel="cat">
+          <div class="search"><span class="ms">search</span><input class="input" id="cat-search" placeholder="Buscar por nombre, modelo o marca"></div>
+          <div class="chips" id="cat-chips"></div>
+          <div class="catalog" id="catalog"></div>
+        </div>
+        <div data-subpanel="sel" hidden>
+          <div id="sel-list"></div>
+        </div>
+      </div>
+
+      <!-- PASO 4 · COTIZACIÓN -->
+      <div class="panel" data-panel="4">
+        <header>
+          <div class="k">Paso 4 de 5</div>
+          <h2>Cotización</h2>
+          <p>El sistema suma los productos de la propuesta. Revisa cantidades y ajusta condiciones.</p>
+        </header>
+        <div id="q-list"></div>
+        <div class="group">
+          <h3><span class="ms">tune</span>Ajustes</h3>
+          <div class="row">
+            <label class="field"><span>Descuento (%)</span><input class="input" type="number" min="0" max="30" step="1" data-bind="quote.discount" data-num="1"></label>
+            <label class="field"><span>Validez (días)</span><input class="input" type="number" min="1" max="90" step="1" data-bind="quote.validity" data-num="1"></label>
+          </div>
+          <label class="toggle"><div><b>Aplicar ITBIS (18%)</b><small>Impuesto sobre el subtotal con descuento</small></div><input type="checkbox" data-bind="quote.tax"></label>
+          <label class="field" style="margin-top:14px"><span>Condiciones <em data-count="quote.terms"></em></span>
+            <textarea class="textarea" data-bind="quote.terms" maxlength="420" rows="4"></textarea></label>
+        </div>
+        <div class="sumbox" id="q-sum"></div>
+      </div>
+
+      <!-- PASO 5 · EXPORTAR -->
+      <div class="panel" data-panel="5">
+        <header>
+          <div class="k">Paso 5 de 5</div>
+          <h2>Revisar y exportar</h2>
+          <p>Verifica la propuesta y descárgala en PDF para enviarla al cliente.</p>
+        </header>
+        <div class="export-meta" id="export-meta"></div>
+        <ul class="checks" id="checks"></ul>
+        <button class="btn primary lg block" id="btn-pdf"><span class="ms">picture_as_pdf</span>Descargar PDF</button>
+        <div class="howto">
+          <b>En el cuadro de impresión:</b>
+          <ol>
+            <li>Destino: <strong>Guardar como PDF</strong></li>
+            <li>Márgenes: <strong>Ninguno</strong> · Escala: <strong>100 %</strong></li>
+            <li>Activa <strong>Gráficos de fondo</strong></li>
+          </ol>
+        </div>
+        <div class="stack">
+          <button class="btn block" id="btn-save-2"><span class="ms">save</span>Guardar propuesta (.json) para editarla después</button>
+        </div>
+      </div>
+
+    </div>
+    <footer class="editor-nav">
+      <button class="btn" id="nav-prev"><span class="ms">arrow_back</span>Anterior</button>
+      <button class="btn primary" id="nav-next">Siguiente<span class="ms">arrow_forward</span></button>
+    </footer>
+  </section>
+
+  <!-- ================= VISTA PREVIA ================= -->
+  <section class="preview" id="preview">
+    <div class="pv-bar"><span><b id="pv-count">0 páginas</b> · <span id="pv-folio"></span></span><span class="dims">A4 horizontal · 297 × 210 mm</span></div>
+    <div class="doc" id="doc"></div>
+    <div class="drop-banner"><span class="ms">add</span> Suelta para agregar a la propuesta</div>
+  </section>
+</main>
+
+<nav class="mtabs" id="mtabs">
+  <button class="on" data-view="edit"><span class="ms">edit</span>Editar</button>
+  <button data-view="preview"><span class="ms">visibility</span>Vista previa</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

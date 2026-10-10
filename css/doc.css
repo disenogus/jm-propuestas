@@ -1,0 +1,312 @@
+/* ==========================================================================
+   Documento · Páginas A4 horizontal (297 × 210 mm)
+   Cada .page es una hoja física: tamaño fijo, overflow oculto.
+   Ningún contenido puede saltar de una hoja a otra.
+   ========================================================================== */
+
+:root {
+  --d-ink: #111111;
+  --d-ink-2: #3b3b3b;
+  --d-mute: #7a7a7a;
+  --d-line: #d9d9d9;
+  --d-fill: #efefef;
+  --d-fill-2: #e2e2e2;
+  --d-dark: #1d1d1d;
+  --pad-x: 16mm;
+  --pad-y: 13mm;
+}
+
+.page {
+  position: relative;
+  width: 297mm;
+  height: 210mm;
+  overflow: hidden;
+  background: #fff;
+  color: var(--d-ink);
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.5;
+  padding: var(--pad-y) var(--pad-x);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  row-gap: 7mm;
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.page *, .page *::before, .page *::after { box-sizing: border-box; }
+.page h1, .page h2, .page h3, .page p, .page ul { margin: 0; padding: 0; }
+.page ul { list-style: none; }
+
+.page .ms {
+  font-family: 'Material Symbols Outlined';
+  font-weight: 300;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* ---------- Tipografía editorial ---------- */
+.eyebrow {
+  font-size: 7pt;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--d-mute);
+}
+.eyebrow b { color: var(--d-ink); font-weight: 700; }
+.h-display { font-size: 40pt; line-height: 1.02; font-weight: 300; letter-spacing: -.02em; }
+.h-display b { font-weight: 700; }
+.h-title { font-size: 25pt; line-height: 1.08; font-weight: 400; letter-spacing: -.015em; }
+.lead { font-size: 11.5pt; line-height: 1.55; color: var(--d-ink-2); font-weight: 300; }
+.body { font-size: 10pt; line-height: 1.6; color: var(--d-ink-2); }
+.label { font-size: 6.5pt; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--d-mute); }
+
+/* ---------- Cabecera y pie comunes ---------- */
+.pg-head {
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: .25mm solid var(--d-ink);
+  padding-bottom: 2.5mm;
+}
+.pg-head .eyebrow:last-child { text-align: right; }
+.pg-foot {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 6.5pt; letter-spacing: .12em; text-transform: uppercase; color: var(--d-mute);
+  border-top: .2mm solid var(--d-line);
+  padding-top: 2.5mm;
+}
+.pg-foot .num { color: var(--d-ink); font-weight: 700; letter-spacing: .08em; }
+
+/* ---------- Placeholder de imagen ---------- */
+.ph {
+  position: relative;
+  background: var(--d-fill);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2mm;
+  color: #a3a3a3;
+  overflow: hidden;
+}
+.ph .ms { font-size: 30pt; }
+.ph small { font-size: 6.5pt; letter-spacing: .14em; text-transform: uppercase; }
+.ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* ==========================================================================
+   PORTADA
+   ========================================================================== */
+.p-cover { padding: 0; display: block; color: #fff; background: var(--d-dark); }
+.p-cover .bg { position: absolute; inset: 0; background: #4a4a4a; }
+.p-cover .bg.ph { color: #8a8a8a; background: #555; align-items: flex-end; justify-content: flex-start; padding: 46mm 22mm 0 0; }
+.p-cover .bg.ph:has(img) { padding: 0; }
+.p-cover .bg img { filter: grayscale(1); }
+.p-cover .shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,.05) 100%), linear-gradient(0deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,0) 45%); }
+.p-cover .inner { position: absolute; inset: var(--pad-y) var(--pad-x); display: grid; grid-template-rows: auto 1fr auto; }
+.p-cover .top { display: flex; justify-content: space-between; align-items: flex-start; }
+.p-cover .brandmark { font-size: 8pt; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; display: flex; align-items: center; gap: 2.5mm; }
+.p-cover .brandmark .box { width: 9mm; height: 9mm; border: .35mm solid #fff; display: flex; align-items: center; justify-content: center; font-size: 8pt; letter-spacing: 0; }
+.p-cover .client-logo { height: 14mm; max-width: 50mm; display: flex; align-items: center; justify-content: flex-end; }
+.p-cover .client-logo img { max-height: 14mm; max-width: 50mm; object-fit: contain; filter: grayscale(1) brightness(0) invert(1); }
+.p-cover .client-logo .ph { width: 32mm; height: 12mm; background: rgba(255,255,255,.14); color: rgba(255,255,255,.7); flex-direction: row; gap: 1.5mm; }
+.p-cover .client-logo .ph .ms { font-size: 13pt; }
+.p-cover .mid { align-self: center; max-width: 180mm; }
+.p-cover .mid .eyebrow { color: rgba(255,255,255,.75); margin-bottom: 5mm; }
+.p-cover h1 { font-size: 54pt; line-height: .98; font-weight: 700; letter-spacing: -.03em; overflow-wrap: anywhere; }
+.p-cover h1 .dot { font-weight: 300; }
+.p-cover .sub { margin-top: 5mm; font-size: 12pt; font-weight: 300; line-height: 1.5; color: rgba(255,255,255,.85); max-width: 150mm; }
+.p-cover .bottom { display: grid; grid-template-columns: auto 1fr; gap: 10mm; align-items: end; border-top: .25mm solid rgba(255,255,255,.4); padding-top: 5mm; }
+.p-cover .meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6mm; }
+.p-cover .meta .label { color: rgba(255,255,255,.6); margin-bottom: 1.2mm; }
+.p-cover .meta p { font-size: 8.5pt; line-height: 1.4; color: #fff; }
+
+/* Burbuja de vendedor */
+.seller { display: flex; align-items: center; gap: 3mm; }
+.avatar {
+  width: 13mm; height: 13mm; border-radius: 50%; flex: none;
+  background: #bdbdbd; color: #1d1d1d; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10pt; font-weight: 700; letter-spacing: .02em;
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); }
+.seller .who b { display: block; font-size: 10pt; font-weight: 500; }
+.seller .who span { font-size: 7.5pt; opacity: .75; }
+.p-cover .seller { background: rgba(255,255,255,.12); padding: 2mm 5mm 2mm 2mm; border-radius: 20mm; }
+
+/* ==========================================================================
+   QUIÉNES SOMOS
+   ========================================================================== */
+.p-about .grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 14mm; min-height: 0; }
+.p-about .txt { display: flex; flex-direction: column; gap: 5mm; }
+.p-about .h-display { font-size: 34pt; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; border-top: .25mm solid var(--d-ink); }
+.stat { padding: 5mm 4mm 5mm 0; border-bottom: .2mm solid var(--d-line); display: flex; flex-direction: column; }
+.stat .l { margin-top: auto !important; }
+.stat:not(:nth-child(3n+1)) { padding-left: 4mm; border-left: .2mm solid var(--d-line); }
+.stat .v { font-size: 30pt; font-weight: 300; letter-spacing: -.02em; line-height: 1; }
+.stat .l { margin-top: 2.5mm; font-size: 7pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.stat .n { margin-top: 1mm; font-size: 8pt; color: var(--d-mute); }
+.brands { display: flex; flex-wrap: wrap; gap: 2mm 6mm; margin-top: auto; padding-top: 4mm; border-top: .2mm solid var(--d-line); }
+.brands span { font-size: 7.5pt; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--d-ink-2); }
+
+/* ==========================================================================
+   VISIÓN / DESCRIPCIÓN
+   ========================================================================== */
+.p-vision .grid { display: grid; grid-template-columns: 92mm 1fr; gap: 14mm; min-height: 0; grid-template-rows: 1fr auto; }
+.p-vision .h-display { font-size: 32pt; overflow-wrap: anywhere; }
+.p-vision .text { min-height: 0; }
+.p-vision .text p + p, .p-vision-cont .text p + p { margin-top: 3.2mm; }
+.pillars { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); border-top: .25mm solid var(--d-ink); }
+.pillar { padding: 4.5mm 6mm 0 0; display: grid; grid-template-columns: 9mm 1fr; column-gap: 3mm; }
+.pillar + .pillar { padding-left: 6mm; border-left: .2mm solid var(--d-line); }
+.pillar .ms { font-size: 18pt; grid-row: span 3; }
+.pillar h3 { font-size: 7pt; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.pillar .pl { font-size: 10.5pt; font-weight: 500; line-height: 1.3; margin: 1.2mm 0; }
+.pillar p { font-size: 8.5pt; color: var(--d-mute); line-height: 1.45; }
+.p-vision-cont .text { columns: 2; column-gap: 12mm; column-fill: auto; height: 100%; }
+
+/* ==========================================================================
+   ECOSISTEMA
+   ========================================================================== */
+.p-eco .intro { display: grid; grid-template-columns: 1fr 1fr; gap: 14mm; align-items: end; }
+.p-eco .body-wrap { display: flex; flex-direction: column; gap: 8mm; min-height: 0; }
+.eco { display: grid; gap: 0; border-top: .25mm solid var(--d-ink); flex: 1; min-height: 0; }
+.eco-item { padding: 5mm 5mm 4mm 0; display: flex; flex-direction: column; gap: 2mm; }
+.eco-item + .eco-item { padding-left: 5mm; border-left: .2mm solid var(--d-line); }
+.eco-item .ms { font-size: 22pt; margin: 2mm 0 1mm; }
+.eco-item h3 { font-size: 12pt; font-weight: 500; line-height: 1.2; }
+.eco-item p { font-size: 8.5pt; color: var(--d-mute); line-height: 1.5; }
+.eco-item .count { margin-top: auto; font-size: 7pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+
+/* ==========================================================================
+   PORTADILLA DE SECCIÓN
+   ========================================================================== */
+.p-section { grid-template-columns: 1fr 112mm; grid-template-rows: 1fr; column-gap: 14mm; padding-right: 0; padding-top: 0; padding-bottom: 0; }
+.p-section .txt { display: grid; grid-template-rows: auto 1fr auto; padding: var(--pad-y) 0; min-height: 0; }
+.p-section .bignum { font-size: 120pt; line-height: .8; font-weight: 100; letter-spacing: -.04em; color: var(--d-fill-2); margin: 4mm 0 0 -2mm; }
+.p-section .h-display { font-size: 44pt; margin-top: 4mm; }
+.p-section .lead { margin-top: 5mm; max-width: 140mm; }
+.tags { display: flex; flex-wrap: wrap; gap: 2mm; margin-top: 6mm; }
+.tags span { font-size: 7pt; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; border: .2mm solid var(--d-ink-2); padding: 1.2mm 3mm; border-radius: 10mm; }
+.p-section .index { border-top: .25mm solid var(--d-ink); }
+.p-section .index li { display: grid; grid-template-columns: 8mm 1fr auto; gap: 3mm; padding: 1.8mm 0; border-bottom: .2mm solid var(--d-line); font-size: 8.5pt; }
+.p-section .index li .i { color: var(--d-mute); font-weight: 500; }
+.p-section .index li .q { color: var(--d-mute); font-size: 7.5pt; letter-spacing: .06em; }
+.p-section .index li.more { color: var(--d-mute); grid-template-columns: 1fr; }
+.p-section .side { height: 100%; }
+.p-section .side.ph .ms { font-size: 64pt; }
+
+/* ==========================================================================
+   FICHA DE PRODUCTO
+   ========================================================================== */
+.p-product .grid { display: grid; grid-template-columns: 112mm 1fr; gap: 12mm; min-height: 0; }
+.p-product .media { display: grid; grid-template-rows: 1fr auto; gap: 4mm; min-height: 0; }
+.p-product .media .ph .ms { font-size: 54pt; }
+.p-product .media .ph .badge { position: absolute; left: 4mm; top: 4mm; font-size: 6.5pt; letter-spacing: .14em; text-transform: uppercase; color: var(--d-ink-2); background: #fff; padding: 1.2mm 2.5mm; }
+.p-product .model { display: flex; justify-content: space-between; align-items: flex-end; border-top: .25mm solid var(--d-ink); padding-top: 2.5mm; }
+.p-product .model .sku { font-size: 12pt; font-weight: 700; letter-spacing: .02em; }
+.p-product .model .brand { font-size: 7pt; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--d-mute); }
+.p-product .info { display: flex; flex-direction: column; min-height: 0; }
+.p-product .meta { display: flex; gap: 2mm; flex-wrap: wrap; }
+.chip { font-size: 6.5pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: 1.3mm 2.8mm; border-radius: 10mm; background: var(--d-ink); color: #fff; display: inline-flex; align-items: center; gap: 1.2mm; }
+.chip.o { background: transparent; color: var(--d-ink-2); border: .2mm solid var(--d-line); }
+.chip .ms { font-size: 9pt; }
+.p-product h2 { margin-top: 4.5mm; font-size: 24pt; line-height: 1.08; font-weight: 400; letter-spacing: -.015em; }
+.p-product .desc { margin-top: 3.5mm; font-size: 9.5pt; line-height: 1.6; color: var(--d-ink-2); }
+.p-product .blk { margin-top: 6mm; }
+.p-product .blk.push { margin-top: auto; padding-top: 6mm; }
+.p-product .blk > .label { display: block; margin-bottom: 2mm; }
+.specs { display: grid; grid-template-columns: repeat(3, 1fr); border-top: .25mm solid var(--d-ink); }
+.spec { display: grid; grid-template-columns: 7mm 1fr; column-gap: 2mm; align-items: start; padding: 3mm 3mm 3mm 0; border-bottom: .2mm solid var(--d-line); }
+.spec:not(:nth-child(3n+1)) { padding-left: 3mm; border-left: .2mm solid var(--d-line); }
+.spec .ms { font-size: 15pt; color: var(--d-ink); grid-row: span 2; margin-top: .3mm; }
+.spec .label { font-size: 6pt; }
+.spec b { font-size: 9pt; font-weight: 500; line-height: 1.3; margin-top: .6mm; overflow-wrap: anywhere; }
+.benefits { display: grid; grid-template-columns: 1fr 1fr; column-gap: 6mm; border-top: .25mm solid var(--d-ink); }
+.benefits li { display: grid; grid-template-columns: 5mm 1fr; gap: 2mm; padding: 2.6mm 0; border-bottom: .2mm solid var(--d-line); font-size: 8.5pt; line-height: 1.45; color: var(--d-ink-2); }
+.benefits li .ms { font-size: 11pt; color: var(--d-ink); margin-top: .2mm; }
+
+/* ==========================================================================
+   ESCENARIOS
+   ========================================================================== */
+.p-scen .wrap { display: flex; flex-direction: column; gap: 7mm; min-height: 0; }
+.scen { display: grid; grid-template-columns: repeat(3, 1fr); border-top: .25mm solid var(--d-ink); flex: 1; }
+.scen > div { padding: 5mm 6mm 0 0; display: flex; flex-direction: column; gap: 2.5mm; }
+.scen > div + div { padding-left: 6mm; border-left: .2mm solid var(--d-line); }
+.scen .t { display: flex; align-items: center; gap: 2mm; }
+.scen .t .ms { font-size: 16pt; }
+.scen h3 { font-size: 13pt; font-weight: 500; line-height: 1.25; }
+.scen p { font-size: 8.5pt; color: var(--d-mute); line-height: 1.5; }
+.scen ol { margin: 1mm 0 0; padding: 0; list-style: none; counter-reset: s; }
+.scen ol li { counter-increment: s; display: grid; grid-template-columns: 7mm 1fr; padding: 2mm 0; border-top: .2mm solid var(--d-line); font-size: 8.5pt; line-height: 1.45; color: var(--d-ink-2); }
+.scen ol li::before { content: counter(s, decimal-leading-zero); font-weight: 700; font-size: 7pt; color: var(--d-mute); padding-top: .4mm; }
+
+/* ==========================================================================
+   PLANOS
+   ========================================================================== */
+.p-plans .wrap { display: grid; grid-template-columns: 80mm 1fr; gap: 12mm; min-height: 0; }
+.p-plans .tiles { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 4mm; min-height: 0; }
+.p-plans .tile { display: grid; grid-template-rows: 1fr 10mm; gap: 2mm; min-height: 0; }
+.p-plans .tile .cap { font-size: 8pt; line-height: 1.35; }
+.p-plans .tile .cap b { font-weight: 500; display: block; }
+.p-plans .tile .cap span { color: var(--d-mute); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ==========================================================================
+   RESUMEN DE INVERSIÓN
+   ========================================================================== */
+.p-quote .wrap { display: flex; flex-direction: column; gap: 5mm; min-height: 0; }
+.p-quote .top { display: flex; justify-content: space-between; align-items: flex-end; gap: 10mm; }
+.p-quote .top .h-title { font-size: 22pt; }
+.qt { width: 100%; border-collapse: collapse; font-size: 8.5pt; table-layout: fixed; }
+.qt th { font-size: 6.5pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--d-mute); text-align: left; padding: 0 2mm 2mm; border-bottom: .25mm solid var(--d-ink); }
+.qt td { padding: 0 2mm; height: 9mm; border-bottom: .2mm solid var(--d-line); vertical-align: middle; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.qt td.n, .qt th.n { text-align: right; font-variant-numeric: tabular-nums; }
+.qt td .s { color: var(--d-mute); font-size: 7pt; margin-left: 2mm; }
+.qt td.i { color: var(--d-mute); }
+.qt col.c-i { width: 9mm; } .qt col.c-cat { width: 32mm; } .qt col.c-q { width: 18mm; } .qt col.c-u { width: 30mm; } .qt col.c-t { width: 34mm; }
+.totals { display: grid; grid-template-columns: 1fr 92mm; gap: 12mm; margin-top: auto; }
+.totals .terms { font-size: 7.5pt; line-height: 1.55; color: var(--d-mute); border-top: .2mm solid var(--d-line); padding-top: 3mm; }
+.totals .terms .label { display: block; margin-bottom: 1.5mm; }
+.totals dl { margin: 0; border-top: .25mm solid var(--d-ink); }
+.totals dl div { display: flex; justify-content: space-between; padding: 2mm 0; border-bottom: .2mm solid var(--d-line); font-size: 9pt; font-variant-numeric: tabular-nums; }
+.totals dl dt { color: var(--d-ink-2); }
+.totals dl dd { margin: 0; font-weight: 500; }
+.totals dl div.grand { border-bottom: 0; padding-top: 3mm; }
+.totals dl div.grand dt { font-size: 7pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--d-ink); align-self: center; }
+.totals dl div.grand dd { font-size: 18pt; font-weight: 700; letter-spacing: -.01em; }
+.p-quote .cont { font-size: 7pt; letter-spacing: .12em; text-transform: uppercase; color: var(--d-mute); text-align: right; margin-top: auto; }
+
+/* ==========================================================================
+   CIERRE
+   ========================================================================== */
+.p-close .wrap { display: grid; grid-template-columns: 1fr 100mm; gap: 16mm; min-height: 0; }
+.p-close .txt { display: flex; flex-direction: column; gap: 5mm; }
+.steps { margin-top: auto; border-top: .25mm solid var(--d-ink); display: grid; grid-template-columns: repeat(3, 1fr); }
+.steps > div { padding: 4mm 5mm 0 0; }
+.steps > div + div { padding-left: 5mm; border-left: .2mm solid var(--d-line); }
+.steps .k { font-size: 20pt; font-weight: 300; color: var(--d-mute); }
+.steps h3 { font-size: 9.5pt; font-weight: 500; margin: 1.5mm 0 1mm; }
+.steps p { font-size: 8pt; color: var(--d-mute); line-height: 1.45; }
+.card { background: var(--d-fill); padding: 8mm; display: flex; flex-direction: column; gap: 5mm; }
+.card .seller .avatar { width: 18mm; height: 18mm; font-size: 14pt; }
+.card .seller .who b { font-size: 13pt; }
+.card .seller .who span { font-size: 8.5pt; color: var(--d-mute); opacity: 1; }
+.card ul li { display: flex; align-items: center; gap: 3mm; padding: 2.4mm 0; border-top: .2mm solid var(--d-line); font-size: 9pt; }
+.card ul li .ms { font-size: 13pt; color: var(--d-mute); }
+.card .co { margin-top: auto; }
+.card .co .label { display: block; margin-bottom: 2mm; }
+
+/* ==========================================================================
+   IMPRESIÓN · una .page = una hoja A4 horizontal, sin márgenes del navegador
+   ========================================================================== */
+@page { size: A4 landscape; margin: 0; }
+
+@media print {
+  html, body { margin: 0 !important; padding: 0 !important; background: #fff !important; }
+  .page { page-break-after: always; break-after: page; break-inside: avoid; }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+}
